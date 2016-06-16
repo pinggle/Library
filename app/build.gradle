@@ -1,0 +1,96 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "com.hengtiansoft.ecommerce.library"
+        minSdkVersion 17
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        buildConfigField 'String', 'TAG', '"ecommerce_library_log"'
+        buildConfigField 'boolean', 'allowD', 'true'
+        buildConfigField 'boolean', 'allowE', 'true'
+        buildConfigField 'boolean', 'allowI', 'true'
+        buildConfigField 'boolean', 'allowV', 'true'
+        buildConfigField 'boolean', 'allowW', 'true'
+        buildConfigField 'boolean', 'allowWtf', 'true'
+
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    // lint选项开关
+    lintOptions {
+        abortOnError false
+    }
+}
+//指定将源码编译的级别,，使用下列代码，会将代码编译到兼容1.7的字节码格式
+retrolambda {
+    println("JAVA_HOME: " + System.getenv("JAVA_HOME"))
+    javaVersion JavaVersion.VERSION_1_7
+}
+
+def supportVersion = '23.3.0'
+def rxVersion = '1.1.0'
+def retrofitVersion = '2.0.2'//2.0.0-beta2
+def rxlifecycleVersion = '0.4.0'
+def rxbindingVersion = '0.3.0'
+//def leakcanaryVersion = '1.3.1'
+def okhttp3Version = '3.1.2'
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    // Support库
+    compile "com.android.support:appcompat-v7:$supportVersion"
+    compile "com.android.support:design:$supportVersion"
+    compile "com.android.support:cardview-v7:$supportVersion"
+    compile "com.android.support:recyclerview-v7:$supportVersion"
+    compile "com.android.support:percent:$supportVersion"
+    // Glide依赖
+    compile "com.android.support:support-v4:$supportVersion"
+    // Retrofit库
+    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
+    // Okhttp3
+    compile "com.squareup.okhttp3:logging-interceptor:$okhttp3Version"
+    compile "com.squareup.okhttp3:okhttp:$okhttp3Version"
+    // Gson
+    // Glide网络图片加载
+    // ButterKnife
+    // RxAndroid
+    compile "io.reactivex:rxandroid:$rxVersion"
+    // 推荐同时加载RxJava
+    compile "io.reactivex:rxjava:$rxVersion"
+    // RxLifecycle管理Rx的生命周期
+    compile "com.trello:rxlifecycle:$rxlifecycleVersion"
+    // RxLifecycle组件
+    compile "com.trello:rxlifecycle-components:$rxlifecycleVersion"
+    // RxBinding
+    compile "com.jakewharton.rxbinding:rxbinding:$rxbindingVersion"
+    compile "com.jakewharton.rxbinding:rxbinding-appcompat-v7:$rxbindingVersion"
+    compile "com.jakewharton.rxbinding:rxbinding-design:$rxbindingVersion"
+    // EventBus
+    // 工具类
+    compile 'com.squareup.okhttp3:okhttp-urlconnection:3.2.0'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.wuxiaolong.androidutils:androidutils:1.0.2'
+    compile 'com.android.support:support-v4:23.3.0'
+    compile 'com.android.support:multidex:1.0.1'
+}
