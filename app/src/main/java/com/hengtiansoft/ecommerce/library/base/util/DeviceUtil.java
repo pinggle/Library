@@ -30,6 +30,22 @@ public class DeviceUtil {
     }
 
     /**
+     * 获取手机号
+     *
+     * @param context
+     * @return
+     */
+    public static String getLineNumber(Context context) {
+        try {
+            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            return tm.getLine1Number();
+        } catch (Exception e) {
+            LogUtil.e("", e);
+        }
+        return null;
+    }
+
+    /**
      * 设备的IMEI
      */
     public static String getIMEI(Context context) {

@@ -1,38 +1,315 @@
 <resources>
+    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!--去除activity自带的actionbar-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
-    <!-- Base application theme. -->
+    <!-- 白天 theme. -->
     <style name="AppThemeDay" parent="AppTheme">
-        <!-- Customize your theme here. -->
+        <!-- toolbar（actionbar）颜色 -->
         <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- 状态栏颜色 -->
         <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <!-- 控件颜色 -->
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
+    <!-- 夜间 theme. -->
     <style name="AppThemeNight" parent="AppTheme">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">#E91E63</item>
         <item name="colorPrimaryDark">#E91E63</item>
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <!--去除activity自带的actionbar-->
+    <style name="AppTheme.NoActionBar"></style>
 
-    </style>
-
+    <!--修改appbar右上角收缩三点的图标样式-->
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
+    <!--修改隐藏菜单弹出的样式-->
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <!--魅族通知栏的动画-->
     <style name="NotificationAnim">
         <item name="android:windowEnterAnimation">@anim/anim_in</item>
         <item name="android:windowExitAnimation">@anim/anim_out</item>
+    </style>
+
+    <!--自定义dialog样式-->
+    <style name="MyDialogStyle">
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 内容覆盖 -->
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 窗口样式Dialog -->
+        <!-- Animation.Dialog -->
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+        <!-- 模糊 -->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <!--包含progressbar的dialog样式-->
+    <style name="ProgressDialogStyle">
+        <!-- 背景透明 -->
+        <!-- @android:color/transparent -->
+        <item name="android:windowBackground">@drawable/progress_dialog_bg</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 内容覆盖 -->
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 窗口样式Dialog -->
+        <!-- Animation.Dialog -->
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <!-- 模糊 -->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <!--popWindow的弹出样式 底部进出-->
+    <style name="PopwindowAnimBottom" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
+    </style>
+
+    <!--popWindow的弹出样式 顶部进出-->
+    <style name="PopwindowAnimTop" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_top_in</item>
+        <item name="android:windowExitAnimation">@anim/push_top_out</item>
+    </style>
+
+    <!--修改系统自带progressBar的样式-->
+    <style name="MyProgressBarStyleMedium">
+        <item name="android:indeterminateDrawable">@drawable/progress_bar_drawable</item>
+        <item name="android:minWidth">18dp</item>
+        <item name="android:maxWidth">25dp</item>
+        <item name="android:minHeight">18dp</item>
+        <item name="android:maxHeight">25dp</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateDuration">700</item>
+    </style>
+
+    <!--修改系统自带progressBar的样式-->
+    <style name="MyProgressBarStyleLarge">
+        <item name="android:indeterminateDrawable">@drawable/progress_bar_drawable</item>
+        <item name="android:minWidth">25dp</item>
+        <item name="android:maxWidth">25dp</item>
+        <item name="android:minHeight">25dp</item>
+        <item name="android:maxHeight">25dp</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateDuration">700</item>
+    </style>
+
+    <!-- 横向progressBar -->
+    <style name="ProgressBarMini" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:maxHeight">20dip</item>
+        <item name="android:minHeight">8dip</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+        <item name="android:progressDrawable">@drawable/view_progressbar_mini</item>
+    </style>
+
+    <!--通用灰色按钮的样式-->
+    <style name="common_button_gray_style">
+        <item name="android:background">@drawable/bg_gray_common_button</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_margin">@dimen/margin_default</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/button_default_height</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/normal_textsize</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <!--通用蓝色按钮的样式-->
+    <style name="common_button_blue_style" parent="common_button_gray_style">
+        <item name="android:background">@drawable/bg_blue_common_button</item>
+    </style>
+
+    <!-- 蓝色背景，圆角矩形，白色文字，文字居中 -->
+    <style name="blue_bg_round_button_style" parent="common_button_gray_style">
+        <item name="android:background">@drawable/bg_blue_round_rectangle_shape</item>
+        <item name="android:padding">@dimen/padding_normal</item>
+        <item name="android:focusable">false</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <!-- 蓝色背景，圆角矩形，白色文字，文字居中 -->
+    <style name="blue_bg_round_button_more_padding_style" parent="blue_bg_round_button_style">
+        <item name="android:padding">@dimen/padding_large</item>
+    </style>
+
+    <!-- 白色背景，圆角矩形，蓝色文字，文字居中 -->
+    <style name="white_bg_round_button_style" parent="blue_bg_round_button_style">
+        <item name="android:background">@drawable/bg_white_round_rectangle_shape</item>
+    </style>
+
+    <!--通用文字样式-->
+    <style name="common_text_wrap_content_style">
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_default</item>
+        <item name="android:padding">@dimen/padding_normal</item>
+        <item name="android:gravity">left|center</item>
+        <item name="android:textSize">@dimen/normal_textsize</item>
+        <item name="android:textColor">@color/colorGray</item>
+    </style>
+
+    <!--通用EditText样式-->
+    <style name="common_edittext_style" parent="common_text_wrap_content_style">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_height">@dimen/click_area_default_min_height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:focusable">true</item>
+        <item name="android:hint">@string/edittext_hint_text</item>
+        <item name="android:textColorHint">@color/text_light_gray</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">@dimen/normal_textsize</item>
+        <item name="android:inputType">text</item>
+        <item name="android:ems">12</item>
+        <item name="android:maxLength">12</item>
+    </style>
+
+    <!--通用CleanableEditText样式-->
+    <style name="common_cleanable_edittext_style" parent="common_edittext_style">
+        <item name="android:drawablePadding">@dimen/padding_normal</item>
+        <item name="android:drawableRight">@drawable/ic_cancel</item>
+    </style>
+
+    <!--通用文字样式 透明背景灰色文字-->
+    <style name="common_text_transparent_style" parent="common_text_wrap_content_style">
+        <item name="android:background">@null</item>
+    </style>
+
+    <!--通用文字样式 白底单行主题颜色文字-->
+    <style name="common_text_line1_primary_style" parent="common_text_wrap_content_style">
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:layout_height">@dimen/button_default_height</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <!--通用文字样式 白底单行灰色文字-->
+    <style name="common_text_line1_gray_style" parent="common_text_line1_primary_style">
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
+
+    <!--通用文字样式 单行白色文字-->
+    <style name="common_text_line1_white_style" parent="common_text_line1_primary_style">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
+    <!--通用文字样式 双行主题色文字-->
+    <style name="common_text_line2_primary_style" parent="common_text_line1_primary_style">
+        <item name="android:singleLine">false</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textSize">@dimen/micro_textsize</item>
+    </style>
+
+    <!--通用文字样式 双行灰色文字-->
+    <style name="common_text_line2_gray_style" parent="common_text_line2_primary_style">
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
+
+    <!--通用文字样式 双行白色文字-->
+    <style name="common_text_line2_white_style" parent="common_text_line2_primary_style">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
+    <!--通用图片样式-->
+    <style name="common_imageview_style">
+        <item name="android:src">@mipmap/ic_launcher</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">250dp</item>
+        <item name="android:layout_height">250dp</item>
+    </style>
+
+    <!--titleBar样式 主题色背景-->
+    <style name="title_bar_style">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/title_bar_height</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!--titlebar左右两侧通用文字样式-->
+    <style name="title_bar_common_text_style">
+        <item name="android:layout_width">@dimen/title_widget_width</item>
+        <item name="android:layout_height">@dimen/title_widget_height</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/meidum_textsize</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item><!--跑马灯-->
+    </style>
+
+    <!--titleBar左侧文字样式-->
+    <style name="title_bar_left_text_style" parent="title_bar_common_text_style">
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:paddingLeft">@dimen/padding_large</item>
+    </style>
+
+    <!--titleBar左侧图标样式-->
+    <style name="title_bar_left_img_style" parent="title_bar_common_text_style">
+        <item name="android:contentDescription">@null</item>
+        <item name="android:src">@mipmap/title_ic_back_white</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentTop">true</item>
+    </style>
+
+    <!--tilteBar右侧文字样式-->
+    <style name="title_bar_right_text_style" parent="title_bar_common_text_style">
+        <item name="android:paddingRight">@dimen/padding_large</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentTop">true</item>
+    </style>
+
+    <!--titleBar右侧保存按钮样式-->
+    <style name="title_bar_right_save_style" parent="title_bar_right_text_style">
+        <item name="android:gravity">right|center</item>
+        <item name="android:text">@string/title_right_save</item>
+    </style>
+
+    <!--titleBar全部文字样式-->
+    <style name="title_bar_full_title_style" parent="title_bar_common_text_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textSize">@dimen/x_meidum_textsize</item>
+    </style>
+
+    <!--titleBar中间标题样式-->
+    <style name="title_bar_center_title_style" parent="title_bar_full_title_style">
+        <item name="android:layout_width">wrap_content</item>
     </style>
 
 </resources>

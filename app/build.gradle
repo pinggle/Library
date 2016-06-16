@@ -67,9 +67,6 @@ dependencies {
     // Okhttp3
     compile "com.squareup.okhttp3:logging-interceptor:$okhttp3Version"
     compile "com.squareup.okhttp3:okhttp:$okhttp3Version"
-    // Gson
-    // Glide网络图片加载
-    // ButterKnife
     // RxAndroid
     compile "io.reactivex:rxandroid:$rxVersion"
     // 推荐同时加载RxJava
@@ -82,15 +79,24 @@ dependencies {
     compile "com.jakewharton.rxbinding:rxbinding:$rxbindingVersion"
     compile "com.jakewharton.rxbinding:rxbinding-appcompat-v7:$rxbindingVersion"
     compile "com.jakewharton.rxbinding:rxbinding-design:$rxbindingVersion"
-    // EventBus
-    // 工具类
+    // Okhttp3 cookie
     compile 'com.squareup.okhttp3:okhttp-urlconnection:3.2.0'
+    // Gson
     compile 'com.google.code.gson:gson:2.6.2'
+    // Glide网络图片加载
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    // ButterKnife
     compile 'com.jakewharton:butterknife:7.0.1'
+    // EventBus
     compile 'org.greenrobot:eventbus:3.0.0'
+    // 工具类
     compile 'com.wuxiaolong.androidutils:androidutils:1.0.2'
-    compile 'com.android.support:support-v4:23.3.0'
+    // 分包
     compile 'com.android.support:multidex:1.0.1'
+    // dialog的动画效果
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.github.sd6352051.niftydialogeffects:niftydialogeffects:1.0.0@aar'
+    // Sweet Alert Dialog
+    compile 'cn.pedant.sweetalert:library:1.3'
 }

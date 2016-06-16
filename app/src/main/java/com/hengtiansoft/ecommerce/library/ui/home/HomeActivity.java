@@ -20,11 +20,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
+import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.hengtiansoft.ecommerce.library.Constants;
 import com.hengtiansoft.ecommerce.library.R;
 import com.hengtiansoft.ecommerce.library.base.BaseActivity;
 import com.hengtiansoft.ecommerce.library.base.BaseListFragment;
+import com.hengtiansoft.ecommerce.library.base.util.AdaptationUtil;
 import com.hengtiansoft.ecommerce.library.base.util.ImageUtil;
 import com.hengtiansoft.ecommerce.library.base.util.SharedPreferencesUtil;
 import com.hengtiansoft.ecommerce.library.base.util.ToastUtil;
@@ -43,6 +47,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import rx.Observable;
 
 public class HomeActivity extends BaseActivity<HomePresenter, HomeModel> implements HomeContract.View {
@@ -125,6 +130,15 @@ public class HomeActivity extends BaseActivity<HomePresenter, HomeModel> impleme
             return true;
         });
 
+        showNotification();
+//        showDialog();
+        showSweetDialog();
+    }
+
+    /**
+     * MeiZhuNotification的执行是同步的
+     */
+    private void showNotification() {
         final MeiZhuNotification notification =
                 new MeiZhuNotification.Builder().setContext(this)
                         .setTime(System.currentTimeMillis())
@@ -132,7 +146,63 @@ public class HomeActivity extends BaseActivity<HomePresenter, HomeModel> impleme
                         .setTitle("超15城现\"毒跑道\"检测结果合查")
                         .setContent("北京市教委凌晨要求各校未完工操场停工；统一接受检查").build();
         notification.show();
+    }
 
+    private void showDialog() {
+        int dialogColor;
+        if (SharedPreferencesUtil.isNight()) {
+            dialogColor = AdaptationUtil.getColor(this, R.color.colorAccent);
+        } else {
+            dialogColor = AdaptationUtil.getColor(this, R.color.colorPrimary);
+        }
+
+        NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(this);
+        dialogBuilder
+                .withTitle("Modal Dialog")                                  //.withTitle(null)  no title
+                .withTitleColor("#FFFFFF")                                  //def
+                .withDividerColor("#11000000")                              //def title的分隔线
+                .withMessage("This is a modal Dialog.")                     //.withMessage(null)  no Msg
+                .withMessageColor("#FFFFFFFF")                              //def  | withMessageColor(int resid)
+                .withDialogColor(/*"#FFE74C3C"*/dialogColor)                //def  | withDialogColor(int resid)
+                .withIcon(getResources().getDrawable(R.drawable.notify))
+                .withDuration(700)                                          //def
+                .withEffect(Effectstype.Newspager)                           //def Effectstype.Slidetop
+                .withButton1Text("OK")                                      //def gone
+                .withButton2Text("Cancel")                                  //def gone
+                .isCancelableOnTouchOutside(true)                           //def    | isCancelable(true)
+                .setCustomView(R.layout.dialog_custom_view, this)         //.setCustomView(View or ResId,context)
+                .setButton1Click(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ToastUtil.show("i'm btn1", Toast.LENGTH_SHORT);
+                    }
+                })
+                .setButton2Click(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ToastUtil.show("i'm btn2f", Toast.LENGTH_SHORT);
+                    }
+                })
+                .show();
+    }
+
+    private void showSweetDialog() {
+        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Are you sure?")
+                .setContentText("Won't be able to recover this file!")
+                .setConfirmText("Yes,delete it!")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog
+                                .setTitleText("Deleted!")
+                                .setContentText("Your imaginary file has been deleted!")
+                                .setConfirmText("OK")
+                                .setConfirmClickListener(null)
+                                .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                    }
+                })
+                .show();
     }
 
     @Override

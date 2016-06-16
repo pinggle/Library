@@ -24,14 +24,13 @@ public class NetWorkUtil {
      * 检测网络是否连接
      */
     public static boolean isNetConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (cm != null) {
-            NetworkInfo[] infos = cm.getAllNetworkInfo();
-            if (infos != null) {
-                for (NetworkInfo ni : infos) {
-                    if (ni.isConnected()) {
-                        return true;
-                    }
+        ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
+            NetworkInfo info = connectivity.getActiveNetworkInfo();
+            if (info != null && info.isConnected()) {
+                // 当前网络是连接的
+                if (info.getState() == NetworkInfo.State.CONNECTED) {
+                    return true;
                 }
             }
         }

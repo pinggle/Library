@@ -1,13 +1,129 @@
 <resources>
-    <dimen name="detail_backdrop_height">200dp</dimen>
-    <dimen name="card_margin">8dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="list_item_avatar_size">40dp</dimen>
-
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
+    <!--屏幕留白距离-->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <!--appBar最小高度-->
+    <dimen name="app_bar_min_height">56dp</dimen>
+    <!--状态栏高度-->
+    <dimen name="top_status_bar_height">24dp</dimen>
+    <!--底部导航栏高度-->
+    <dimen name="bottom_navigation_bar_height">48dp</dimen>
+    <!--侧边抽屉到屏幕右边的距离-->
+    <dimen name="left_drawer_magin_right">56dp</dimen>
+    <!--卡片间距-->
+    <dimen name="cardview_margin">8dp</dimen>
+    <!--分隔线上下留白-->
+    <dimen name="divider_line_top_bottom_margin">8dp</dimen>
+    <!--可操作元素最小点击尺寸-->
+    <dimen name="click_area_default_min_height">48dp</dimen>
+    <dimen name="click_area_default_min_width">48dp</dimen>
+    <!--悬浮按钮尺寸-->
+    <dimen name="fab_height">56dp</dimen>
+    <dimen name="fab_width">56dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <!--用户头像尺寸-->
+    <dimen name="user_avatar_height">64dp</dimen>
+    <dimen name="user_avatar_width">64dp</dimen>
+    <dimen name="detail_backdrop_height">200dp</dimen>
+    <!--列表项头像size-->
+    <dimen name="list_item_avatar_size">40dp</dimen>
+
+    <!--自定义appbar的高度-->
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="toolbar_padding_top">0dp</dimen>
+
+    <!--自定义titlebar的高度-->
+    <dimen name="title_bar_height">50dp</dimen>
+    <dimen name="title_widget_height">50dp</dimen>
+    <dimen name="title_widget_width">50dp</dimen>
+
+    <!-- padding -->
+    <dimen name="padding_small">2dp</dimen>
+    <dimen name="padding_normal">5dp</dimen>
+    <dimen name="padding_medium">8dp</dimen>
+    <dimen name="padding_large">10dp</dimen>
+    <dimen name="padding_extra_large">12dp</dimen>
+    <dimen name="padding_very_large">15dp</dimen>
+    <dimen name="padding_default">16dp</dimen>
+    <dimen name="padding_very_very_large">20dp</dimen>
+
+    <!-- margin -->
+    <dimen name="margin_extra_small">1dp</dimen>
+    <dimen name="margin_small">2dp</dimen>
+    <dimen name="margin_normal">5dp</dimen>
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_large">10dp</dimen>
+    <dimen name="margin_extra_large">12dp</dimen>
+    <dimen name="margin_very_large">15dp</dimen>
+    <dimen name="margin_default">16dp</dimen>
+    <dimen name="margin_very_very_large">20dp</dimen>
+
+    <!-- 自定义分割线高度 -->
+    <dimen name="divider_line_height_micro">0.5dp</dimen>
+    <dimen name="divider_line_height_small">1dp</dimen>
+    <dimen name="divider_line_height_normal">2dp</dimen>
+    <dimen name="divider_line_height_medium">4dp</dimen>
+
+    <!-- images -->
+    <dimen name="image_small">24dp</dimen>
+    <dimen name="image_normal">32dp</dimen>
+    <dimen name="image_medium">48dp</dimen>
+    <dimen name="image_large">60dp</dimen>
+    <dimen name="image_extra_large">120dp</dimen>
+
+    <!-- TextView/Button size -->
+    <dimen name="button_normal_height">40dp</dimen>
+    <dimen name="button_default_height">48dp</dimen>
+    <dimen name="button_normal_width">100dp</dimen>
+
+    <!-- menu_button_title -->
+    <dimen name="height_top_bar">48dp</dimen>
+    <dimen name="padding_search_bar">5dp</dimen>
+    <dimen name="size_avatar">50dp</dimen>
+    <dimen name="margin_chat_activity">5dp</dimen>
+    <dimen name="field_margin_right">5dp</dimen>
+    <dimen name="call_button_padding_vertical">10dp</dimen>
+    <dimen name="call_button_padding_left">25dp</dimen>
+    <dimen name="call_button_padding_right">25dp</dimen>
+    <dimen name="sidebar_text_size">10dp</dimen>
+    <dimen name="image_thumbnail_size">100dp</dimen>
+    <dimen name="image_thumbnail_spacing">1dp</dimen>
+
+    <!-- android设计规范之TextSize -->
+    <!--小字提示-->
+    <dimen name="micro_textsize">12sp</dimen>
+    <!--正文/按钮文字 桌面端-->
+    <dimen name="small_textsize">13sp</dimen>
+    <!--正文/按钮文字 -->
+    <dimen name="field_textsize">14sp</dimen>
+    <!--小标题 桌面端-->
+    <dimen name="renormal_textsize">15sp</dimen>
+    <!--小标题 -->
+    <dimen name="normal_textsize">16sp</dimen>
+    <dimen name="meidum_textsize">18sp</dimen>
+    <!--appbar文字-->
+    <dimen name="x_meidum_textsize">20sp</dimen>
+    <dimen name="large_textsize">22sp</dimen>
+    <!--大标题-->
+    <dimen name="extra_large_textsize">24sp</dimen>
+    <!--超大号字体-->
+    <dimen name="extra_extra_large_textsize">34sp</dimen>
+
+    <!-- 微信设置 -->
+    <dimen name="height_row_weixin">48dp</dimen>
+    <dimen name="text_normal">16dp</dimen>
+    <dimen name="text_small">14dp</dimen>
+    <dimen name="wx_field_margin_left">20dp</dimen>
+    <dimen name="wx_field_margin_right">20dp</dimen>
+
+    <!--popwindow item height-->
+    <dimen name="popwindow_item_height">39dp</dimen>
+
+
 </resources>
