@@ -9,6 +9,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
+/**
+ * ProjectName：Library
+ * PackageName: com.hengtiansoft.ecommerce.library.view.widget
+ * Description：一键清除内容的EditText
+ *
+ * @author liminghuang
+ * @time 6/15/2016 17:26
+ * Modifier：liminghuang
+ * ModifyTime：6/15/2016 17:26
+ * Comment：
+ */
 public class CleanableEditText extends EditText {
   private Drawable mRightDrawable;
   private boolean isHasFocus;

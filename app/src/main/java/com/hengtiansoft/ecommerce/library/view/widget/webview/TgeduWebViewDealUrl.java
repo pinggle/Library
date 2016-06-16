@@ -14,7 +14,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
-
 /**
  * ProjectName：Library
  * PackageName: com.hengtiansoft.ecommerce.library.view.widget.webview
@@ -95,7 +94,7 @@ public class TgeduWebViewDealUrl {
     public boolean IsSkipToActivity(String strUrl, Map<String, String> urlParamMap) {
         final String strUrlStart = "http://skip/";
         if (strUrl != null && strUrl.length() > 0 && strUrl.startsWith(strUrlStart)) {
-            strUrl = URLDecoder.decode(strUrl);// 中文需要反序列化，URL编码
+            strUrl = URLDecoder.decode(strUrl);// 中文需要反序列化，即URL解码
             strUrl = getValueByUrl(strUrl, "url");
             Intent intent = new Intent();
             //TODO FIXME
@@ -121,7 +120,7 @@ public class TgeduWebViewDealUrl {
         String strUrlStart = "http://browseropen:";
         if (strUrl != null && strUrl.length() > 0 && strUrl.startsWith(strUrlStart)) {
             try {
-                strUrl = URLDecoder.decode(strUrl);// 中文需要反序列化
+                strUrl = URLDecoder.decode(strUrl);// 中文需要反序列化，即URL解码
                 strUrl = getValueByUrl(strUrl, "url");
                 Uri uri = Uri.parse(strUrl);
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
