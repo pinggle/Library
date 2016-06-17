@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hengtiansoft.ecommerce.library.BasicApplication;
 import com.hengtiansoft.ecommerce.library.Constants;
 import com.hengtiansoft.ecommerce.library.base.util.TUtil;
 import com.hengtiansoft.ecommerce.library.view.layout.TRecyclerView;
@@ -48,6 +49,20 @@ public class BaseListFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (mXRecyclerView != null) mXRecyclerView.fetch();
+//        if (getActivity() instanceof BaseActivity) {
+//            DialogHelper.DialogArgs dialogArgs = new DialogHelper.DialogArgs("Loading", null, false);
+//            dialogArgs.setAlertDialogType(SweetAlertDialog.PROGRESS_TYPE);
+//            dialogArgs.setProgressBarColor(Color.parseColor("#A5DC86"));
+//            ((BaseActivity) getActivity()).showProgressDialog(dialogArgs);
+//        }
+        if (mXRecyclerView != null) {
+            mXRecyclerView.fetch();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        BasicApplication.getRefWatcher().watch(this);// 内存泄露分析
     }
 }

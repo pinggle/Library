@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import com.hengtiansoft.ecommerce.library.R;
 import com.hengtiansoft.ecommerce.library.base.util.SharedPreferencesUtil;
 import com.hengtiansoft.ecommerce.library.base.util.TUtil;
+import com.hengtiansoft.ecommerce.library.base.util.helper.DialogHelper;
 import com.hengtiansoft.ecommerce.library.view.layout.SwipeBackLayout;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
@@ -35,6 +36,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
 
     private SwipeBackLayout swipeBackLayout;
     private ImageView ivShadow;
+    private DialogHelper mDialogHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,16 +48,9 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         mContext = this;
         mPresenter = TUtil.getT(this, 0);
         mModel = TUtil.getT(this, 1);
+        mDialogHelper = new DialogHelper(this);
         this.initView();
         this.initPresenter();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mPresenter != null)
-            mPresenter.onDestroy();//取消注册，以避免内存泄露
-        ButterKnife.unbind(this);
     }
 
     @Override
@@ -64,6 +59,18 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         if (isNight != SharedPreferencesUtil.isNight()) {
             reload();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mPresenter != null) {
+            mPresenter.onDestroy();//取消注册，以避免内存泄露
+        }
+        if (mDialogHelper != null) {
+            mDialogHelper.onDestroy();
+        }
+        ButterKnife.unbind(this);
     }
 
     /**
@@ -112,6 +119,18 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         container.addView(swipeBackLayout);
         swipeBackLayout.setOnSwipeBackListener((fa, fs) -> ivShadow.setAlpha(1 - fs));
         return container;
+    }
+
+    protected void showProgressDialog(DialogHelper.DialogArgs dialogArgs) {
+        mDialogHelper.showProgressDialog(dialogArgs);
+    }
+
+    protected void stopProgressDialog() {
+        mDialogHelper.StopProgressDialog();
+    }
+
+    protected void showAlertDialog(DialogHelper.DialogArgs dialogArgs) {
+        mDialogHelper.showAlertDialog(dialogArgs);
     }
 
 

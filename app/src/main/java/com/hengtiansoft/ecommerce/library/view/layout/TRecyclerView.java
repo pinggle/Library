@@ -220,7 +220,7 @@ public class TRecyclerView<T extends BaseEntity.ListBean> extends LinearLayout {
                         }, new Action1<Throwable>() {
                             @Override
                             public void call(Throwable e) {
-                                LogUtil.e("加载更多数据异常", e);
+                                LogUtil.e("加载数据异常", e);
                                 setEmpty();
                             }
                         }
