@@ -2,6 +2,8 @@ package com.hengtiansoft.ecommerce.library.base.util;
 
 import java.util.regex.Pattern;
 
+import static android.view.View.Z;
+
 /**
  * ProjectName：Library
  * PackageName: com.hengtiansoft.ecommerce.library.base.util
@@ -14,6 +16,57 @@ import java.util.regex.Pattern;
  * Comment：
  */
 public final class RegexUtil {
+
+    /**
+     * 密码校验（包含大小写字母和数字的组合，不能使用特殊字符，长度在8-10之间）
+     * @param password
+     * @return
+     */
+    public static boolean checkPassword(String password) {
+        String regex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$";
+        return Pattern.matches(regex, password);
+    }
+
+    /**
+     * 校验中文
+     * @param args
+     * @return
+     */
+    public static boolean checkZh(String args) {
+        String regex = "^[\\u4e00-\\u9fa5]{0,}$";
+        return Pattern.matches(regex, args);
+    }
+
+    /**
+     * 校验字符串（由数字、26个英文字母或下划线组成的字符串）
+     * @param arg
+     * @return
+     */
+    public static boolean checkString(String arg){
+        String regex = "^\\w+$";
+        return Pattern.matches(regex, arg);
+    }
+
+    /**
+     * “yyyy-mm-dd“ 格式的日期校验，已考虑平闰年。
+     * @param arg
+     * @return
+     */
+    public static boolean checkDate(String arg){
+        String regex = "^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$";
+        return Pattern.matches(regex, arg);
+    }
+
+    /**
+     * 金额校验，精确到2位小数。
+     * @param money
+     * @return
+     */
+    public static boolean checkMoney(String money){
+        String regex = "^[0-9]+(.[0-9]{2})?$";
+        return Pattern.matches(regex, money);
+    }
+
     /**
      * 手机号码，中间4位星号替换
      *
@@ -169,6 +222,20 @@ public final class RegexUtil {
     }
 
     /**
+     * 区分请求是HTTPS还是HTTP，通过下面的表达式可以取出一个url的前缀然后再逻辑判断
+     * @param url
+     * @return
+     */
+    public static String checkURLPrefix(String url) {
+        String regex = "^[a-zA-Z]+:\\\\/\\\\/";
+        if (!Pattern.matches(regex, url))
+        {
+            url = "http://" + url;
+        }
+        return url;
+    }
+
+    /**
      * 匹配中国邮政编码
      *
      * @param postcode 邮政编码
@@ -187,6 +254,11 @@ public final class RegexUtil {
      */
     public static boolean checkIpAddress(String ipAddress) {
         String regex = "[1-9](\\d{1,2})?\\.(0|([1-9](\\d{1,2})?))\\.(0|([1-9](\\d{1,2})?))\\.(0|([1-9](\\d{1,2})?))";
+        return Pattern.matches(regex, ipAddress);
+    }
+
+    public static boolean checkIp(String ipAddress) {
+        String regex = "\\\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\\\b";
         return Pattern.matches(regex, ipAddress);
     }
 }
