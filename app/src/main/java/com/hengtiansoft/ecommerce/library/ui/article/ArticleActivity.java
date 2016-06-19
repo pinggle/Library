@@ -74,6 +74,11 @@ public class ArticleActivity extends BaseActivity<ArticlePresenter, ArticleModel
     }
 
     @Override
+    public void initData() {
+
+    }
+
+    @Override
     public void initPresenter() {
         mPresenter.setVM(this, mModel);
     }

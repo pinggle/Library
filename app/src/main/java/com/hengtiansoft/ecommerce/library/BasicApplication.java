@@ -4,7 +4,15 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
+import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMMessage;
+import com.avos.avoscloud.im.v2.AVIMMessageHandler;
+import com.avos.avoscloud.im.v2.AVIMMessageManager;
+import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.hengtiansoft.ecommerce.library.base.util.CrashHandler;
 import com.hengtiansoft.ecommerce.library.base.util.SharedPreferencesUtil;
 import com.squareup.leakcanary.LeakCanary;
@@ -26,6 +34,20 @@ public class BasicApplication extends Application {
     /** 内存泄露检测工具 **/
     private static RefWatcher sRefWatcher;
 
+    public static class CustomMessageHandler extends AVIMMessageHandler {
+        //接收到消息后的处理逻辑
+        @Override
+        public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client){
+            if(message instanceof AVIMTextMessage){
+                Log.d("Tom & Jerry",((AVIMTextMessage)message).getText());
+            }
+        }
+
+        public void onMessageReceipt(AVIMMessage message, AVIMConversation conversation, AVIMClient client){
+
+        }
+    }
+
     @Override
     public void attachBaseContext(Context base) {
         MultiDex.install(base);
@@ -39,6 +61,10 @@ public class BasicApplication extends Application {
         CrashHandler.getInstance().init(this);// 崩溃报告分析
         SharedPreferencesUtil.init(this);// 偏好设置初始化
         sRefWatcher = LeakCanary.install(this);// Leakcanary内存泄露分析
+        AVOSCloud.initialize(this, "vcPB2arj8lyxd0xqSVrddgLK-gzGzoHsz", "VDNyTbqWwavjsf320zXw2WTI");
+        //如果使用美国节点，请加上这行代码 AVOSCloud.useAVCloudUS();
+        //注册默认的消息处理逻辑
+        AVIMMessageManager.registerDefaultMessageHandler(new CustomMessageHandler());
     }
 
     public static Context getAppContext() {

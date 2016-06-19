@@ -2,8 +2,6 @@ package com.hengtiansoft.ecommerce.library.base.util;
 
 import java.util.regex.Pattern;
 
-import static android.view.View.Z;
-
 /**
  * ProjectName：Library
  * PackageName: com.hengtiansoft.ecommerce.library.base.util

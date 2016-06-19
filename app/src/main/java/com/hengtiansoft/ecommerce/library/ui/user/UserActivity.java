@@ -72,6 +72,11 @@ public class UserActivity extends BaseActivity<UserPresenter, UserModel> impleme
         } else fab.setOnClickListener(v -> ToastUtil.show("ok"));
     }
 
+    @Override
+    public void initData() {
+
+    }
+
     private void getPhoto() {
         Intent intentFromGallery = new Intent();
         intentFromGallery.setType("image/*");

@@ -56,6 +56,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
         tv_sign.setOnClickListener(v -> swich());
     }
 
+    @Override
+    public void initData() {
+
+    }
+
     private void showProgress() {
         DialogHelper.DialogArgs dialogArgs = new DialogHelper.DialogArgs("Loading", null, false);
         dialogArgs.setUseDialogFragment(false);

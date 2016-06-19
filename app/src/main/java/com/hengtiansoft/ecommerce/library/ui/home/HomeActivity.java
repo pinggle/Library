@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,11 +22,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.SaveCallback;
 import com.hengtiansoft.ecommerce.library.Constants;
 import com.hengtiansoft.ecommerce.library.R;
 import com.hengtiansoft.ecommerce.library.base.BaseActivity;
 import com.hengtiansoft.ecommerce.library.base.BaseListFragment;
 import com.hengtiansoft.ecommerce.library.base.util.ImageUtil;
+import com.hengtiansoft.ecommerce.library.base.util.LogUtil;
 import com.hengtiansoft.ecommerce.library.base.util.SharedPreferencesUtil;
 import com.hengtiansoft.ecommerce.library.base.util.ToastUtil;
 import com.hengtiansoft.ecommerce.library.base.util.helper.FragmentAdapter;
@@ -126,6 +131,26 @@ public class HomeActivity extends BaseActivity<HomePresenter, HomeModel> impleme
         });
 
         showNotification();
+    }
+
+    @Override
+    public void initData() {
+        // 测试 SDK 是否正常工作的代码
+        AVObject todo = new AVObject("Todo");
+        todo.put("title", "工程师周会");
+        todo.put("content", "每周工程师会议，周一下午2点");
+        todo.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+                if (e == null) {
+                    // 存储成功
+                    LogUtil.d("saved success");
+                } else {
+                    // 失败的话，请检查网络环境以及 SDK 配置是否正确
+                    LogUtil.e(e.getMessage(),e);
+                }
+            }
+        });
     }
 
     /**
