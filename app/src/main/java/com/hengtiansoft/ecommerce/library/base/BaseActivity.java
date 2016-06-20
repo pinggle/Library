@@ -4,11 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.hengtiansoft.ecommerce.library.R;
+import com.hengtiansoft.ecommerce.library.base.util.LogUtil;
 import com.hengtiansoft.ecommerce.library.base.util.SharedPreferencesUtil;
 import com.hengtiansoft.ecommerce.library.base.util.TUtil;
 import com.hengtiansoft.ecommerce.library.base.util.helper.DialogHelper;
@@ -71,6 +75,56 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
             mDialogHelper.onDestroy();
         }
         ButterKnife.unbind(this);
+    }
+
+    /**
+     * dispatchTouchEvent()返回true，后续事件（ACTION_MOVE、ACTION_UP）会再传递，如果返回false，dispatchTouchEvent()就接收不到ACTION_UP、
+     * ACTION_MOVE。
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        LogUtil.i("BaseActivity dispatchTouchEvent");
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View currentFocusView = getCurrentFocus();
+            if (isShouldHideInput(currentFocusView, ev)) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null && imm.isActive()) {// 如果键盘已经打开
+                    imm.hideSoftInputFromWindow(currentFocusView.getWindowToken(), 0);
+                }
+            }
+            return super.dispatchTouchEvent(ev);
+        }
+        // 必不可少，否则所有的组件都不会有TouchEvent了
+        if (getWindow().superDispatchTouchEvent(ev)) {
+            return true;
+        }
+        return onTouchEvent(ev);// 这样才能被GestureDetectorCompat捕获keydown时间
+    }
+
+    /**
+     * Description: 是否隐藏键盘的逻辑判断
+     *
+     * @param touchView
+     * @param event
+     * @return
+     */
+    protected boolean isShouldHideInput(View touchView, MotionEvent event) {
+        if (touchView != null && (touchView instanceof EditText)) {
+            int[] leftTop = {0, 0};
+            // 获取输入框当前的location位置
+            touchView.getLocationInWindow(leftTop);
+            int left = leftTop[0];
+            int top = leftTop[1];
+            int bottom = top + touchView.getHeight();
+            int right = left + touchView.getWidth();
+            if (event.getX() > left && event.getX() < right && event.getY() > top && event.getY() < bottom) {
+                // 点击的是输入框区域，保留点击EditText的事件
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
