@@ -178,14 +178,27 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         return container;
     }
 
+    /**
+     * 显示进度条
+     *
+     * @param dialogArgs
+     */
     protected void showProgressDialog(DialogHelper.DialogArgs dialogArgs) {
         mDialogHelper.showProgressDialog(dialogArgs);
     }
 
+    /**
+     * 隐藏进度条
+     */
     protected void stopProgressDialog() {
         mDialogHelper.StopProgressDialog();
     }
 
+    /**
+     * 显示对话框
+     *
+     * @param dialogArgs
+     */
     protected void showAlertDialog(DialogHelper.DialogArgs dialogArgs) {
         mDialogHelper.showAlertDialog(dialogArgs);
     }

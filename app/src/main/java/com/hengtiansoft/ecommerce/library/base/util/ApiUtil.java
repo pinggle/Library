@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * ProjectName：Library
  * PackageName: com.hengtiansoft.ecommerce.library.base.util
- * Description：
+ * Description：API接口参数转换的工具类
  *
  * @author liminghuang
  * @time 6/14/2016 11:03
@@ -22,6 +22,12 @@ public class ApiUtil {
 
     public static final String TEXT_INCLUDE = "include";
 
+    /**
+     * 根据传入的param构建接口的查询语句
+     *
+     * @param param
+     * @return
+     */
     public static String getWhere(Map<String, String> param) {
         String where = "";
         for (Map.Entry<String, String> entry : param.entrySet()) {

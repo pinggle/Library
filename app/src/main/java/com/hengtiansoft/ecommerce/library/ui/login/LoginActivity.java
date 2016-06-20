@@ -8,8 +8,13 @@ import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.SaveCallback;
 import com.hengtiansoft.ecommerce.library.R;
 import com.hengtiansoft.ecommerce.library.base.BaseActivity;
+import com.hengtiansoft.ecommerce.library.base.util.EncryptUtil;
+import com.hengtiansoft.ecommerce.library.base.util.LogUtil;
 import com.hengtiansoft.ecommerce.library.base.util.helper.DialogHelper;
 import com.hengtiansoft.ecommerce.library.ui.home.HomeActivity;
 
@@ -31,6 +36,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
     @Bind(R.id.tv_title)
     TextView tv_title;
     boolean isLogin = true;
+    String name;
+    String pass;
 
     @Override
     public int getLayoutId() {
@@ -40,8 +47,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
     @Override
     public void initView() {
         fab.setOnClickListener(v -> {
-            String name = tlName.getEditText().getText().toString();
-            String pass = tlPass.getEditText().getText().toString();
+            name = tlName.getEditText().getText().toString();
+            pass = tlPass.getEditText().getText().toString();
             String msg = TextUtils.isEmpty(name) ? "用户名不能为空!" : TextUtils.isEmpty(pass) ? "密码不能为空!" : "";
             if (!TextUtils.isEmpty(msg)) {
                 showMsg(msg);
@@ -76,12 +83,42 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
 
     @Override
     public void loginSuccess() {
+        AVObject userLoginRecord = new AVObject("UserLoginRecord");// 构建对象
+        userLoginRecord.put("userName", name);// 用户名
+        userLoginRecord.put("passWord", EncryptUtil.encryptMd5(pass));// 密码
+        userLoginRecord.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+                if (e == null) {
+                    // 记录成功
+                    LogUtil.d("login success");
+                } else {
+                    // 失败的话，请检查网络环境以及 SDK 配置是否正确
+                    LogUtil.e(e.getMessage(), e);
+                }
+            }
+        });// 保存到服务端
         stopProgressDialog();
         startActivity(new Intent(LoginActivity.this, HomeActivity.class));
     }
 
     @Override
     public void signSuccess() {
+        AVObject ecommerceUser = new AVObject("EcommerceUser");// 构建对象
+        ecommerceUser.put("userName", name);// 用户名
+        ecommerceUser.put("passWord", EncryptUtil.encryptMd5(pass));// 密码
+        ecommerceUser.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+                if (e == null) {
+                    // 存储成功
+                    LogUtil.d("sign success");
+                } else {
+                    // 失败的话，请检查网络环境以及 SDK 配置是否正确
+                    LogUtil.e(e.getMessage(), e);
+                }
+            }
+        });// 保存到服务端
         stopProgressDialog();
         swich();
     }

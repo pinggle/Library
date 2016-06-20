@@ -108,7 +108,7 @@ public class EncryptUtil {
             cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(kgen.generateKey().getEncoded(), "AES"));
             return cipher.doFinal(content.getBytes("utf-8"));
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtil.e(e.getMessage(), e);
         }
         return null;
     }
@@ -133,7 +133,7 @@ public class EncryptUtil {
             byte[] decryptBytes = cipher.doFinal(encryptBytes);
             return new String(decryptBytes);
         } catch (Exception e) {
-            e.printStackTrace();
+            LogUtil.e(e.getMessage(), e);
         }
         return null;
     }

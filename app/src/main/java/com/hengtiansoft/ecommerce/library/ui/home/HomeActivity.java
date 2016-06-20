@@ -14,7 +14,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -136,7 +135,7 @@ public class HomeActivity extends BaseActivity<HomePresenter, HomeModel> impleme
     @Override
     public void initData() {
         // 测试 SDK 是否正常工作的代码
-        AVObject todo = new AVObject("Todo");
+        AVObject todo = new AVObject("TestTodo");
         todo.put("title", "工程师周会");
         todo.put("content", "每周工程师会议，周一下午2点");
         todo.saveInBackground(new SaveCallback() {
