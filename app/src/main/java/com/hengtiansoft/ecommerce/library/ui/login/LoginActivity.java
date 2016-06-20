@@ -7,10 +7,14 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.SaveCallback;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.hengtiansoft.ecommerce.library.R;
 import com.hengtiansoft.ecommerce.library.base.BaseActivity;
 import com.hengtiansoft.ecommerce.library.base.util.EncryptUtil;
@@ -19,6 +23,9 @@ import com.hengtiansoft.ecommerce.library.base.util.helper.DialogHelper;
 import com.hengtiansoft.ecommerce.library.ui.home.HomeActivity;
 
 import butterknife.Bind;
+import cn.leancloud.chatkit.LCChatKit;
+import cn.leancloud.chatkit.activity.LCIMConversationActivity;
+import cn.leancloud.chatkit.utils.LCIMConstants;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
@@ -60,7 +67,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
                 mPresenter.sign(name, pass);
             }
         });
-        tv_sign.setOnClickListener(v -> swich());
+        tv_sign.setOnClickListener(v ->switchString());
     }
 
     @Override
@@ -99,7 +106,20 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
             }
         });// 保存到服务端
         stopProgressDialog();
-        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+//        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+        LCChatKit.getInstance().open("Tom", new AVIMClientCallback() {
+            @Override
+            public void done(AVIMClient avimClient, AVIMException e) {
+                if (null == e) {
+                    finish();
+                    Intent intent = new Intent(LoginActivity.this, LCIMConversationActivity.class);
+                    intent.putExtra(LCIMConstants.PEER_ID, "Jerry");
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -120,7 +140,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
             }
         });// 保存到服务端
         stopProgressDialog();
-        swich();
+        switchString();
     }
 
     @Override
@@ -132,15 +152,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
     /**
      * 登录注册切换
      */
-    private void swich() {
+    private void switchString() {
         if (isLogin) {
-            isLogin = false;
             tv_title.setText("注册");
             tv_sign.setText("去登录");
         } else {
-            isLogin = true;
             tv_title.setText("登录");
             tv_sign.setText("去注册");
         }
+        isLogin= !isLogin;
     }
 }

@@ -15,33 +15,80 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
-#-------------------------------------------定制化区域----------------------------------------------
+#*********************************************定制化区域********************************************
 #---------------------------------1.实体类---------------------------------
 
 
 
-#-------------------------------------------------------------------------
 
 #---------------------------------2.第三方包-------------------------------
 
 
 
-#-------------------------------------------------------------------------
 
 #---------------------------------3.与js互相调用的类------------------------
 
 
 
-#-------------------------------------------------------------------------
 
 #---------------------------------4.反射相关的类和方法-----------------------
 
 
 
-#----------------------------------------------------------------------------
-#---------------------------------------------------------------------------------------------------
 
-#-------------------------------------------基本不用动区域--------------------------------------------
+
+#******************************************leancloud***********************************************
+
+-keepattributes Signature
+-dontwarn com.jcraft.jzlib.**
+-keep class com.jcraft.jzlib.**  { *;}
+
+-dontwarn sun.misc.**
+-keep class sun.misc.** { *;}
+
+-dontwarn com.alibaba.fastjson.**
+-keep class com.alibaba.fastjson.** { *;}
+
+-dontwarn sun.security.**
+-keep class sun.security.** { *; }
+
+-dontwarn com.google.**
+-keep class com.google.** { *;}
+
+-dontwarn com.avos.**
+-keep class com.avos.** { *;}
+
+-keep public class android.net.http.SslError
+-keep public class android.webkit.WebViewClient
+
+-dontwarn android.webkit.WebView
+-dontwarn android.net.http.SslError
+-dontwarn android.webkit.WebViewClient
+
+-dontwarn android.support.**
+
+-dontwarn org.apache.**
+-keep class org.apache.** { *;}
+
+-dontwarn org.jivesoftware.smack.**
+-keep class org.jivesoftware.smack.** { *;}
+
+-dontwarn com.loopj.**
+-keep class com.loopj.** { *;}
+
+-dontwarn com.squareup.okhttp.**
+-keep class com.squareup.okhttp.** { *;}
+-keep interface com.squareup.okhttp.** { *; }
+
+-dontwarn okio.**
+
+-dontwarn org.xbill.**
+-keep class org.xbill.** { *;}
+
+-keepattributes *Annotation*
+
+
+#********************************************基本不用动区域*******************************************
 #---------------------------------基本指令区----------------------------------
 -optimizationpasses 5
 -dontusemixedcaseclassnames
@@ -54,7 +101,7 @@
 -keepattributes *Annotation*,InnerClasses
 -keepattributes Signature
 -keepattributes SourceFile,LineNumberTable
-#----------------------------------------------------------------------------
+
 
 #---------------------------------默认保留区---------------------------------
 -keep public class * extends android.app.Activity
@@ -106,7 +153,6 @@
 -keepclassmembers class * {
     void *(**On*Event);
 }
-#----------------------------------------------------------------------------
 
 #---------------------------------webview------------------------------------
 -keepclassmembers class fqcn.of.javascript.interface.for.webview {
@@ -119,5 +165,5 @@
 -keepclassmembers class * extends android.webkit.webViewClient {
     public void *(android.webkit.webView, jav.lang.String);
 }
-#----------------------------------------------------------------------------
-#---------------------------------------------------------------------------------------------------
+
+#*****************************************************************************************************
