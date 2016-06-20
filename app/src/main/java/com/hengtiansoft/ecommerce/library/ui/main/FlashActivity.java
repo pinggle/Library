@@ -49,6 +49,11 @@ public class FlashActivity extends BaseActivity {
     }
 
     @Override
+    public void initData() {
+
+    }
+
+    @Override
     public void initPresenter() {
     }
 }

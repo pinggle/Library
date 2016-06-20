@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.avos.avoscloud.AVAnalytics;
 import com.hengtiansoft.ecommerce.library.R;
 import com.hengtiansoft.ecommerce.library.base.util.LogUtil;
 import com.hengtiansoft.ecommerce.library.base.util.SharedPreferencesUtil;
@@ -48,12 +49,14 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         isNight = SharedPreferencesUtil.isNight();
         setTheme(isNight ? R.style.AppThemeNight : R.style.AppThemeDay);
         this.setContentView(this.getLayoutId());
+        AVAnalytics.trackAppOpened(getIntent());//跟踪统计应用的打开情况
         ButterKnife.bind(this);
         mContext = this;
         mPresenter = TUtil.getT(this, 0);
         mModel = TUtil.getT(this, 1);
         mDialogHelper = new DialogHelper(this);
         this.initView();
+        this.initData();
         this.initPresenter();
     }
 
@@ -191,6 +194,8 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
     public abstract int getLayoutId();
 
     public abstract void initView();
+
+    public abstract void initData();
 
     /**
      * 简单页面无需mvp就不用管此方法即可,完美兼容各种实际场景的变通
