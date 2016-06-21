@@ -40,7 +40,7 @@ public class DeviceUtil {
             TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             return tm.getLine1Number();
         } catch (Exception e) {
-            LogUtil.e("", e);
+            LogUtil.e(e.getMessage(), e);
         }
         return null;
     }
@@ -53,7 +53,7 @@ public class DeviceUtil {
             TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             return tm.getDeviceId();
         } catch (Exception e) {
-            LogUtil.e("", e);
+            LogUtil.e(e.getMessage(), e);
         }
         return null;
     }
@@ -67,7 +67,7 @@ public class DeviceUtil {
             WifiInfo info = wifi.getConnectionInfo();
             return info.getMacAddress();
         } catch (Exception e) {
-            LogUtil.e("", e);
+            LogUtil.e(e.getMessage(), e);
         }
         return null;
     }

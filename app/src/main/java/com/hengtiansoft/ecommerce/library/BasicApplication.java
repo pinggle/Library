@@ -37,8 +37,8 @@ public class BasicApplication extends Application {
     /** 内存泄露检测工具 **/
     private static RefWatcher sRefWatcher;
     // appId、appKey 可以在「LeanCloud  控制台 / 设置 / 应用 Key」获取
-    private static final String APP_ID = "vcPB2arj8lyxd0xqSVrddgLK-gzGzoHsz";
-    private static final String APP_KEY = "VDNyTbqWwavjsf320zXw2WTI";
+    private final String APP_ID = "vcPB2arj8lyxd0xqSVrddgLK-gzGzoHsz";
+    private final String APP_KEY = "VDNyTbqWwavjsf320zXw2WTI";
 
     public static class CustomMessageHandler extends AVIMMessageHandler {
         //接收到消息后的处理逻辑

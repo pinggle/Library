@@ -117,6 +117,7 @@ public class ApplicationUtil {
     /**
      * 打开应用
      *
+     * @param context
      * @param item
      */
     public static void open(Activity context, ApplicationInfo item) {

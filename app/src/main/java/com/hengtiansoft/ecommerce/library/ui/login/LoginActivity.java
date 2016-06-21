@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.GetCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMException;
@@ -20,7 +22,8 @@ import com.hengtiansoft.ecommerce.library.base.BaseActivity;
 import com.hengtiansoft.ecommerce.library.base.util.EncryptUtil;
 import com.hengtiansoft.ecommerce.library.base.util.LogUtil;
 import com.hengtiansoft.ecommerce.library.base.util.helper.DialogHelper;
-import com.hengtiansoft.ecommerce.library.ui.home.HomeActivity;
+
+import java.util.Date;
 
 import butterknife.Bind;
 import cn.leancloud.chatkit.LCChatKit;
@@ -45,6 +48,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
     boolean isLogin = true;
     String name;
     String pass;
+    private String objectId;
 
     @Override
     public int getLayoutId() {
@@ -67,7 +71,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
                 mPresenter.sign(name, pass);
             }
         });
-        tv_sign.setOnClickListener(v ->switchString());
+        tv_sign.setOnClickListener(v -> switchString());
     }
 
     @Override
@@ -90,9 +94,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
 
     @Override
     public void loginSuccess() {
-        AVObject userLoginRecord = new AVObject("UserLoginRecord");// 构建对象
+        final AVObject userLoginRecord = new AVObject("UserLoginRecord");// 构建对象
         userLoginRecord.put("userName", name);// 用户名
         userLoginRecord.put("passWord", EncryptUtil.encryptMd5(pass));// 密码
+        userLoginRecord.setFetchWhenSave(true);// 设置 fetchWhenSave 为 true
         userLoginRecord.saveInBackground(new SaveCallback() {
             @Override
             public void done(AVException e) {
@@ -114,7 +119,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
                     finish();
                     Intent intent = new Intent(LoginActivity.this, LCIMConversationActivity.class);
                     intent.putExtra(LCIMConstants.PEER_ID, "Jerry");
-                    startActivity(intent);
+                    LoginActivity.this.startActivity(intent);
                 } else {
                     Toast.makeText(LoginActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                 }
@@ -124,15 +129,18 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
 
     @Override
     public void signSuccess() {
-        AVObject ecommerceUser = new AVObject("EcommerceUser");// 构建对象
+        final AVObject ecommerceUser = new AVObject("EcommerceUser");// 构建对象
         ecommerceUser.put("userName", name);// 用户名
         ecommerceUser.put("passWord", EncryptUtil.encryptMd5(pass));// 密码
+        ecommerceUser.setFetchWhenSave(true);// 设置 fetchWhenSave 为 true
         ecommerceUser.saveInBackground(new SaveCallback() {
             @Override
             public void done(AVException e) {
                 if (e == null) {
                     // 存储成功
-                    LogUtil.d("sign success");
+                    LogUtil.d("sign success and objectId is " + ecommerceUser.getObjectId());
+                    objectId = ecommerceUser.getObjectId();// 保存成功之后，objectId 会自动从服务端加载到本地
+                    getObjectArgs(objectId);
                 } else {
                     // 失败的话，请检查网络环境以及 SDK 配置是否正确
                     LogUtil.e(e.getMessage(), e);
@@ -141,6 +149,25 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
         });// 保存到服务端
         stopProgressDialog();
         switchString();
+    }
+
+    private void getObjectArgs(String objectId) {
+        AVQuery<AVObject> avQuery = new AVQuery<>("EcommerceUser");
+        avQuery.getInBackground(objectId, new GetCallback<AVObject>() {
+            @Override
+            public void done(AVObject avObject, AVException e) {
+
+                //访问了并不存在的属性，SDK 并不会抛出异常，而是会返回空值。
+                String usertName = avObject.getString("usertName");
+                String passWord = avObject.getString("passWord");
+
+                // 获取三个特殊属性
+                String objectId = avObject.getObjectId();
+                Date updatedAt = avObject.getUpdatedAt();
+                Date createdAt = avObject.getCreatedAt();
+                LogUtil.d(avObject.toString());
+            }
+        });
     }
 
     @Override
@@ -160,6 +187,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter, LoginModel> impl
             tv_title.setText("登录");
             tv_sign.setText("去注册");
         }
-        isLogin= !isLogin;
+        isLogin = !isLogin;
     }
 }

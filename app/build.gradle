@@ -177,7 +177,7 @@ retrolambda {
     javaVersion JavaVersion.VERSION_1_7
 }
 
-def supportVersion = '24.0.0'
+def supportVersion = '23.3.0'
 def rxVersion = '1.1.0'
 def retrofitVersion = '2.0.2'//2.0.0-beta2
 def rxlifecycleVersion = '0.4.0'
