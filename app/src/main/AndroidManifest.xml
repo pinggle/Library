@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.hengtiansoft.ecommerce.library"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.hengtiansoft.ecommerce.library">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -53,8 +53,21 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize"/>
 
-        <service android:name=".base.GrayService"/>
-        <service android:name=".base.GrayService$GrayInnerService"/>
+        <!--灰色保活-->
+        <service
+            android:name=".base.GrayService"
+            android:exported="true"/><!--android:exported="true"服务是否能够被其他应用程序组件调用或跟它交互-->
+        <service
+            android:name=".base.GrayService$GrayInnerService"
+            android:exported="true"/>
+
+        <receiver android:name=".base.GrayBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
 
         <!-- 实时通信模块、推送（若使用该功能，需添加以下声明）START -->
         <service

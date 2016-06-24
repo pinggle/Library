@@ -55,6 +55,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         mPresenter = TUtil.getT(this, 0);
         mModel = TUtil.getT(this, 1);
         mDialogHelper = new DialogHelper(this);
+        AppManager.getInstance().addActivity(this);
         this.initView();
         this.initData();
         this.initPresenter();
